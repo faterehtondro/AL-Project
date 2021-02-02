@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script src="../maze/lodash.min.js"></script>
+   <script src="../maze/script.js">
+        
+  </script> 
+  <script>
+       const n = 4;
+    let tempMap = [];
+    let map_n = 2 * n + 1;
+    for (let i = 0; i < map_n; i++) {
+      let row = [] ;
+
+      if (i === 0 || i === map_n - 1) {
+        for (let j = 0; j < map_n; j++) {
+          row.push({ id: `${i}-${j}`, value: 1 });
+        }
+        tempMap.push(row);
+        continue;
+      }
+
+      //put even rows
+      if (i % 2 === 0) {
+        for (let j = 0; j < map_n; j++) {
+          if (j === 0 || j === map_n - 1) {
+            row.push({ id: `${i}-${j}`, value: 1 });
+
+            continue;
+          }
+          row.push(
+            { id: `${i}-${j}`, value: 0 }
+            // { id: "", value: 2 }
+          );
+        }
+        tempMap.push(row);
+      }
+      //put odd rows
+      else {
+        for (let j = 0; j < map_n; j++) {
+          if (j === 0 || j === map_n - 1) {
+            row.push({ id: `${i}-${j}`, value: 1 });
+            continue;
+          }
+          if (j % 2 === 0) {
+            row.push(
+              { id: `${i}-${j}`, value: 0 }
+              // { id: "", value: 2 }
+            );
+          } else {
+            row.push(
+              { id: `${i}-${j}`, value: 2 }
+              // { id: "", value: 2 }
+            );
+          }
+        }
+        tempMap.push(row);
+      }
+      
+    }
+      tempMap[2][1].value=1
+      tempMap[4][1].value=1
+      tempMap[3][2].value=1
+      tempMap[1][4].value=1
+  console.log(tempMap);
+  let mazeManager = new Maze(tempMap.map(item1 => item1.map(item2 => item2.value)) , { i: 1 , j : 1} , {i : 7 , j:7 });
+  let output = mazeManager.start();
+  console.log(output);
+  </script>
+</body>
+
+</html>
